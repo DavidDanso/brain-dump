@@ -1,0 +1,285 @@
+{% load static %}
+<!--  -->
+{% load humanize %}
+
+<!DOCTYPE html>
+<html lang="en" class="js has-scroll-init has-scroll-smooth">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta
+      name="description"
+      content="BrainDump is a platform that helps you capture all of the thoughts, ideas, and tasks that are currently cluttering your mind, in order to free up mental space and focus on what's important."
+    />
+    <meta name="keywords" content="BrainDump is a platform" />
+    <meta name="author" content="the_desiinger" />
+    <link rel="icon" href="{% static '/images/favicon.svg' %}" />
+    <title>Quick Notes Page</title>
+
+    <!-- Preload CSS -->
+    <link rel="preload" as="style" href="{% static '/css/quick_note.css' %}" />
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="{% static '/css/bootstrap.min.css' %}" />
+    <link rel="stylesheet" href="{% static '/css/quick_note.css' %}" />
+    <link
+      href="//netdna.bootstrapcdn.com/font-awesome/3.2.1/css/font-awesome.css"
+      rel="stylesheet"
+    />
+    <link
+      href="//netdna.bootstrapcdn.com/font-awesome/3.2.1/css/font-awesome.css"
+      rel="stylesheet"
+    />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/2.1.2/TweenMax.min.js"></script>
+
+    <script>
+      document.documentElement.className = "js";
+      var supportsCssVars = function () {
+        var e,
+          t = document.createElement("style");
+        return (
+          (t.innerHTML = "root: { --tmp-var: bold; }"),
+          document.head.appendChild(t),
+          (e = !!(
+            window.CSS &&
+            window.CSS.supports &&
+            window.CSS.supports("font-weight", "var(--tmp-var)")
+          )),
+          t.parentNode.removeChild(t),
+          e
+        );
+      };
+      supportsCssVars() ||
+        alert(
+          "Please view this work in a modern browser that supports CSS Variables."
+        );
+    </script>
+  </head>
+  <body
+    id="pageTop"
+    class="page-content"
+    data-spy="scroll"
+    data-target="#mainNav"
+  >
+    <!--======================== Main-Section ================================-->
+    <main>
+      <!--======================== Nav-Section ================================-->
+      {% include 'notes/nav.html' %}
+      <!-- End Nav-Section -->
+
+      <!-- Show django messages -->
+      {% include 'notes/django-messages.html' %}
+      <!--  end django message -->
+
+      <!--=========================================== smooth-scroll-effect ===============================-->
+      <div data-scroll class="page page--layout-2">
+        <div class="content content--full content--alternate"></div>
+        <!-- End content -->
+
+        <!--======================== BrainDump-App-Section ================================-->
+        <div class="app-container">
+          <div class="menu-wrapper">
+            <!--------------------- LEFT SIDE WRAPPER --------------------->
+            <div class="left-side-menu">
+              <!--------------------- SIDE WRAPPER IMAGE --------------------->
+              <div class="side-wrapper">
+                <!-- user_info -->
+                <center>
+                  <div id="user_info">
+                    {% with name=request.user.profile.name %}
+                    <!--  -->
+                    <h2 class="first-intial">{{ name|slice:":1" }}</h2>
+                    <!--  -->
+                    {% endwith %}
+                  </div>
+                </center>
+                <!-- End user_info -->
+
+                <!--------------------- SIDE MENU LINKS --------------------->
+                <div class="side-menu" id="side-menu">
+                  <a href="{% url 'get-started' %}">
+                    <img
+                      id="icons"
+                      src="{% static '/images/get-started.svg' %}"
+                    />
+                    Get Started
+                  </a>
+                  <a href="{% url 'all-notes' %}">
+                    <img id="icons" src="{% static '/images/notebook.svg' %}" />
+                    All Notes
+                  </a>
+                  <a href="{% url 'quick-note' %}" class="active-nav">
+                    <img
+                      id="icons"
+                      src="{% static '/images/sticky-note.png' %}"
+                    />
+                    Quick Notes
+                  </a>
+
+                  <div id="new_folder">
+                    <a
+                      href="#newFolder"
+                      data-bs-toggle="modal"
+                      data-bs-target="#staticBackdropNewFolder"
+                    >
+                      <img
+                        id="icons"
+                        src="{% static '/images/new-folder.svg' %}"
+                      />
+                      <span>New Folder</span>
+                    </a>
+                  </div>
+                  <!-- End new_folder-->
+
+                  {% include 'folders/folder-container.html' %}
+                </div>
+                <!-- End side-menu -->
+              </div>
+              <!-- End side-wrapper -->
+
+              <!--------------------- SIDE WRAPPER FOOTER --------------------->
+              {% include 'notes/side-wrapper-footer.html' %}
+              <!-- End side-wrapper -->
+            </div>
+            <!-- End left-side -->
+
+            <!--------------------- MAIN CONATINER --------------------->
+            <div class="main-container">
+              <h1>
+                Quick Notes
+                <span>
+                  <a
+                    href="#add_note"
+                    data-bs-toggle="modal"
+                    data-bs-target="#staticBackdrop"
+                  >
+                    <img
+                      id="default-img"
+                      class="img-fluid"
+                      src="{% static '/images/edit.png' %}"
+                      alt="default-img"
+                    />
+                  </a>
+                </span>
+              </h1>
+
+              <hr id="line" />
+
+              <div id="note_details" class="live-search-list">
+                {% if created_today or previous_note %}
+                <!------------- created_today section  ------------>
+                {% if created_today %}
+                <div class="row">
+                  <h3 id="day_">Notes Created Today:</h3>
+                  {% for note in created_today %}
+                  <div class="col-md-3" id="col_section">
+                    <a href="{% url 'quick-note' note.id %}">
+                      <div class="card">
+                        <div class="card-body">
+                          <h2>{{note.title | truncatechars:20}}</h2>
+                          <p>{{note.description | truncatechars:120}}</p>
+                        </div>
+                        <!-- card-body -->
+                      </div>
+                      <!-- card -->
+                      <div id="extra_info">
+                        <h4 id="title_note">
+                          {{note.title | truncatechars:20}}
+                        </h4>
+                        <h6 id="date_">
+                          {{note.updated_time_stamp|naturaltime}}
+                        </h6>
+                      </div>
+                      <!-- End extra_info --> </a
+                    ><!-- end note-->
+                  </div>
+                  <!-- col -->
+                  {% endfor %}
+                </div>
+                <!-- row -->
+                <hr id="line" class="line-divider" />
+                {% else %}
+                <hr id="line" class="line-hide" />
+                {% endif %}
+                <!------------- end created_today section  ------------>
+
+                <!------------- previous_note section  ------------>
+                {% if previous_note %}
+                <div class="row" id="prev_notes">
+                  <h3 id="day_" class="prev_notes">Previous Notes Created:</h3>
+                  {% for note in previous_note %}
+                  <div class="col-md-3" id="col_section">
+                    <a href="{% url 'quick-note' note.id %}">
+                      <div class="card">
+                        <div class="card-body">
+                          <h2>{{note.title | truncatechars:20}}</h2>
+                          <p>{{note.description | truncatechars:120}}</p>
+                        </div>
+                        <!-- card-body -->
+                      </div>
+                      <!-- card -->
+                      <div id="extra_info">
+                        <h4 id="title_note">
+                          {{note.title | truncatechars:20}}
+                        </h4>
+                        <h6 id="date_">{{note.updated_time_stamp}}</h6>
+                      </div>
+                      <!-- End extra_info --> </a
+                    ><!-- end note-->
+                  </div>
+                  <!-- col -->
+                  {% endfor %}
+                </div>
+                <!-- row -->
+                {% endif %}
+                <!------------- end previous_note section  ------------>
+                {% else %}
+                <!------------- Empty Notes Section  ------------->
+                <div id="no_notes">
+                  <h2>No Notes</h2>
+                </div>
+                <!-- end no_notes -->
+                {% endif %}
+              </div>
+              <!-- note_details -->
+
+              <!--------------------- FOOTER --------------------->
+              {% include 'notes/footer.html' %}
+              <!-- End footer -->
+            </div>
+            <!-- End main-container -->
+          </div>
+          <!-- End menu-wrapper -->
+        </div>
+        <!-- End app-container -->
+
+        <!--=========================================== New-Folder-Modal--layout ===============================-->
+        {% include 'folders/new-folder-modal.html' %}
+        <!-- End new_folder-modal-->
+
+        <!--=========================================== Modal--layout ===============================-->
+        {% include 'notes/quick-note-modal.html' %}
+        <!-- End quick_note-modal-->
+      </div>
+      <!-- End page--layout -->
+    </main>
+    <!-- End Main-Section -->
+
+    <!--=============================================== JavaScript ===================================-->
+    <script src="https://code.jquery.com/jquery-3.4.1.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.5.0/gsap.min.js"></script>
+    <script
+      type="module"
+      src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"
+    ></script>
+    <script
+      nomodule
+      src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"
+    ></script>
+    <!-- unpkg -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/2.1.3/TweenMax.min.js"></script>
+    <!-- Custom Links -->
+    <script src="{% static '/js/jquery-min.js' %}"></script>
+    <script src="{% static '/js/bootstrap.min.js' %}"></script>
+    <script src="{% static '/js/quick_note.js' %}"></script>
+  </body>
+</html>

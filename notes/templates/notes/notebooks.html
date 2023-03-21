@@ -1,0 +1,325 @@
+{% load static %}
+<!--  -->
+{% load humanize %}
+<!--  -->
+<!DOCTYPE html>
+<html lang="en" class="js has-scroll-init has-scroll-smooth">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta
+      name="description"
+      content="BrainDump is a platform that helps you capture all of the thoughts, ideas, and tasks that are currently cluttering your mind, in order to free up mental space and focus on what's important."
+    />
+    <meta name="keywords" content="BrainDump is a platform" />
+    <meta name="author" content="the_desiinger" />
+    <link rel="icon" href="{% static '/images/favicon.svg' %}" />
+    <title>All Notes Page</title>
+
+    <!-- Preload CSS -->
+    <link rel="preload" as="style" href="{% static '/css/notebooks.css' %}" />
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="{% static '/css/bootstrap.min.css' %}" />
+    <link rel="stylesheet" href="{% static '/css/notebooks.css' %}" />
+    <link
+      href="//netdna.bootstrapcdn.com/font-awesome/3.2.1/css/font-awesome.css"
+      rel="stylesheet"
+    />
+    <link
+      href="//netdna.bootstrapcdn.com/font-awesome/3.2.1/css/font-awesome.css"
+      rel="stylesheet"
+    />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/2.1.2/TweenMax.min.js"></script>
+
+    <script>
+      document.documentElement.className = "js";
+      var supportsCssVars = function () {
+        var e,
+          t = document.createElement("style");
+        return (
+          (t.innerHTML = "root: { --tmp-var: bold; }"),
+          document.head.appendChild(t),
+          (e = !!(
+            window.CSS &&
+            window.CSS.supports &&
+            window.CSS.supports("font-weight", "var(--tmp-var)")
+          )),
+          t.parentNode.removeChild(t),
+          e
+        );
+      };
+      supportsCssVars() ||
+        alert(
+          "Please view this work in a modern browser that supports CSS Variables."
+        );
+    </script>
+  </head>
+  <body
+    id="pageTop"
+    class="page-content"
+    data-spy="scroll"
+    data-target="#mainNav"
+  >
+    <!--======================== Main-Section ================================-->
+    <main>
+      <!--======================== Nav-Section ================================-->
+      {% include 'notes/nav.html' %}
+      <!-- End Nav-Section -->
+
+      <!-- Show django messages -->
+      {% include 'notes/django-messages.html' %}
+      <!--  end django message -->
+
+      <!--=========================================== smooth-scroll-effect ===============================-->
+      <div data-scroll class="page page--layout-2">
+        <div class="content content--full content--alternate"></div>
+        <!-- End content -->
+
+        <!--======================== BrainDump-App-Section ================================-->
+        <div class="app-container">
+          <div class="menu-wrapper">
+            <!--------------------- LEFT SIDE WRAPPER --------------------->
+            <div class="left-side-menu">
+              <!--------------------- SIDE WRAPPER IMAGE --------------------->
+              <div class="side-wrapper">
+                <!-- user_info -->
+                <center>
+                  <div id="user_info">
+                    {% with name=request.user.profile.name %}
+                    <!--  -->
+                    <h2 class="first-intial">{{ name|slice:":1" }}</h2>
+                    <!--  -->
+                    {% endwith %}
+                  </div>
+                </center>
+                <!-- End user_info -->
+
+                <!--------------------- SIDE MENU LINKS --------------------->
+                <div class="side-menu" id="side-menu">
+                  <a href="{% url 'get-started' %}">
+                    <img
+                      id="icons"
+                      src="{% static '/images/get-started.svg' %}"
+                    />
+                    Get Started
+                  </a>
+                  <a href="#all-notes" class="active-nav">
+                    <img id="icons" src="{% static '/images/notebook.svg' %}" />
+                    All Notes
+                  </a>
+                  <a href="{% url 'quick-note' %}">
+                    <img
+                      id="icons"
+                      src="{% static '/images/sticky-note.png' %}"
+                    />
+                    Quick Notes
+                  </a>
+
+                  <div id="new_folder">
+                    <a
+                      href="#newFolder"
+                      data-bs-toggle="modal"
+                      data-bs-target="#staticBackdropNewFolder"
+                    >
+                      <img
+                        id="icons"
+                        src="{% static '/images/new-folder.svg' %}"
+                      />
+                      <span>New Folder</span>
+                    </a>
+                  </div>
+                  <!-- End new_folder-->
+
+                  {% include 'folders/folder-container.html' %}
+                </div>
+                <!-- End side-menu -->
+              </div>
+              <!-- End side-wrapper -->
+
+              <!--------------------- SIDE WRAPPER FOOTER --------------------->
+              {% include 'notes/side-wrapper-footer.html' %}
+              <!-- End side-wrapper -->
+            </div>
+            <!-- End left-side -->
+
+            <!--------------------- MAIN CONATINER --------------------->
+            <div class="main-container">
+              <h1>
+                All Notes
+                <span>
+                  <img
+                    id="default-img"
+                    class="img-fluid"
+                    src="{% static '/images/default.svg' %}"
+                    alt="default-img"
+                  />
+                </span>
+              </h1>
+
+              {% if all_notes %}
+              <center>
+                <div id="search">
+                  <input
+                    id="input"
+                    class="live-search-box"
+                    placeholder="search note by title..."
+                  />
+                  <button id="button">
+                    <ion-icon name="search-circle"></ion-icon>
+                  </button>
+                </div>
+              </center>
+              <!-- End center -->
+              <hr id="line" />
+
+              <div id="note_details" class="live-search-list">
+                <div class="row">
+                  <h3 id="day_">Avaliable Notes: [{{note_count}}]</h3>
+                  {% for note in all_notes %}
+                  <div class="col-md-3" id="col_section">
+                    <a
+                      href="#"
+                      data-bs-toggle="offcanvas"
+                      data-bs-target="#offcanvasRight{{note.id}}"
+                      aria-controls="offcanvasRight{{note.id}}"
+                    >
+                      {% if note in folder_notes %}
+                      <div class="card">
+                        <div class="card-body">
+                          <h2>{{note.title | truncatechars:20}}</h2>
+                          <p>{{note.description | truncatechars:120}}</p>
+                        </div>
+                        <!-- card-body -->
+                      </div>
+                      <!-- card -->
+                      {% else %}
+                      <div class="card" id="white_border-color">
+                        <div class="card-body">
+                          <h2>{{note.title | truncatechars:20}}</h2>
+                          <p>{{note.description | truncatechars:120}}</p>
+                        </div>
+                        <!-- card-body -->
+                      </div>
+                      <!-- card -->
+                      {% endif %}
+                      <div id="extra_info">
+                        <h4 id="title_note">
+                          {{note.title | truncatechars:20}}
+                        </h4>
+                        <h6 id="date_">{{note.created_time_stamp}}</h6>
+                        {% if note in folder_notes %}
+                        <h5>
+                          <img
+                            src="{% static '/images/default-note.png' %}"
+                            id="notes_folder-img"
+                            class="img-fluid"
+                            alt="notes_folder-img"
+                          />
+                          Folder Note
+                        </h5>
+                        {% else %}
+                        <h5>
+                          <img
+                            src="{% static '/images/notebook.png' %}"
+                            id="notes_folder-img"
+                            class="img-fluid"
+                            alt="notes_folder-img"
+                          />
+                          Quick Note
+                        </h5>
+                        {% endif %}
+                      </div>
+                      <!-- End extra_info --> </a
+                    ><!-- end note-->
+                  </div>
+                  <!-- col -->
+                  {% endfor %}
+                  <!--  -->
+                </div>
+                <!-- row -->
+              </div>
+              <!-- note_details -->
+
+              {% else %}
+              <!------------- Empty Notes Section  ------------->
+              <div id="no_notes">
+                <h2>No Notes</h2>
+              </div>
+              <!-- end no_notes -->
+              {% endif %}
+
+              <!--------------------- FOOTER --------------------->
+              {% include "notes/footer.html" %}
+              <!-- End footer -->
+
+              <!--  -->
+              <div id="note_canvas">
+                {% for note in all_notes %}
+                <div
+                  class="offcanvas offcanvas-end"
+                  tabindex="-1"
+                  id="offcanvasRight{{note.id}}"
+                  aria-labelledby="offcanvasRightLabel"
+                >
+                  <div class="offcanvas-header">
+                    <h5 class="offcanvas-title" id="offcanvasRightLabel">
+                      <span>created</span>: {{note.created_time_stamp}}
+                    </h5>
+                    <img
+                      id="close_img"
+                      src="{% static 'images/close.svg' %}"
+                      data-bs-dismiss="offcanvas"
+                      aria-label="Close"
+                      alt="close_img"
+                    />
+                  </div>
+                  <!-- end offcanvas-header -->
+                  <div class="offcanvas-body">
+                    <img
+                      id="banner_img"
+                      src="{% static 'images/banner.jpg' %}"
+                      alt="banner_img"
+                    />
+                    <h1>{{note.title}}</h1>
+                    <p id="note__details">{{note.description|linebreaks}}</p>
+                  </div>
+                  <!-- end offcanvas-body -->
+                </div>
+                <!-- end offcanvas -->
+                {% endfor %}
+              </div>
+              <!-- end note_offcanvas -->
+            </div>
+            <!-- End main-container -->
+          </div>
+          <!-- End menu-wrapper -->
+        </div>
+        <!-- End app-container -->
+
+        <!--=========================================== New-Folder-Modal--layout ===============================-->
+        {% include 'folders/new-folder-modal.html' %}
+        <!-- End new_folder-modal-->
+      </div>
+      <!-- End page--layout -->
+    </main>
+    <!-- End Main-Section -->
+
+    <!--=============================================== JavaScript ===================================-->
+    <script src="https://code.jquery.com/jquery-3.4.1.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.5.0/gsap.min.js"></script>
+    <script
+      type="module"
+      src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"
+    ></script>
+    <script
+      nomodule
+      src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"
+    ></script>
+    <!-- unpkg -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/2.1.3/TweenMax.min.js"></script>
+    <!-- Custom Links -->
+    <script src="{% static '/js/jquery-min.js' %}"></script>
+    <script src="{% static '/js/bootstrap.min.js' %}"></script>
+    <script src="{% static '/js/notebooks.js' %}"></script>
+  </body>
+</html>

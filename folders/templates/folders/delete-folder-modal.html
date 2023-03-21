@@ -1,0 +1,71 @@
+{% load static %}
+<!--=========================================== delete-note-Modal--layout ===============================-->
+<div id="delete-folder-modal">
+  <div
+    class="modal fade"
+    id="deleteFolderModal"
+    data-bs-backdrop="static"
+    data-bs-keyboard="false"
+    tabindex="-1"
+    aria-labelledby="staticBackdropLabel"
+    aria-hidden="true"
+  >
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h6 class="modal-title" id="staticBackdropLabel">
+            {{folder_title}} Folder
+          </h6>
+          <img
+            id="close_img"
+            src="{% static '/images/close.svg' %}"
+            class="img-fluid"
+            alt="close_img"
+            data-bs-dismiss="modal"
+            aria-label="Close"
+          />
+        </div>
+        <div class="modal-body">
+          <div id="modal-wrapper">
+            <h2>Are sure you want to delete this Folder</h2>
+            <h4>Note: This action can't be undone.</h4>
+            <img
+              id="sad_img"
+              src="{% static '/images/empty-folder.png' %}"
+              class="img-fluid d-flex mx-auto"
+              alt="sad_img"
+            />
+            <h6>
+              All of the following notes and their related items will be deleted
+              permanently:
+            </h6>
+            <form action="" method="POST">
+              {% csrf_token%}
+              <div class="modal-footer">
+                <a href="#" data-bs-dismiss="modal" aria-label="Close">
+                  <h6>
+                    <span>Cancel, keep this folder</span>
+                  </h6>
+                </a>
+                <input
+                  type="submit"
+                  class="btn"
+                  name="delete"
+                  id="delete_folder"
+                  value="delete folder"
+                />
+              </div>
+              <!-- End modal-footer-->
+            </form>
+            <!-- End form-->
+          </div>
+          <!-- End modal-wrapper-->
+        </div>
+        <!-- End modal-body-->
+      </div>
+      <!-- End modal-content-->
+    </div>
+  </div>
+  <!-- End modal-->
+</div>
+<!-- End delete-folder-modal-->

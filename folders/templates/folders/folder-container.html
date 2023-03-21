@@ -1,0 +1,36 @@
+{% load static %}
+<!-- display all created folder / show folder image when no folder is created -->
+<div id="folder-container">
+  {% if all_folders %}
+  <!--  -->
+  {% for folder in all_folders %}
+  <a href="{% url 'notes' folder.title %}">
+    <h4>
+      <img
+        id="folder-img"
+        src="{% static '/images/empty-folder.png' %}"
+        alt="folder-img"
+      />
+      {{folder | truncatechars:15}}
+      <span>{{folder.number_of_notes}}</span>
+    </h4>
+  </a>
+  {% endfor %}
+  <!--  -->
+  {% else %}
+
+  <!---------------------- empty folder  -------------------->
+  <div id="empty-folder">
+    <center>
+      <img
+        id="emptyfolder-img"
+        src="{% static '/images/empty-folder.png' %}"
+        alt="emptyfolder-img"
+      />
+      <h6>No folder created yet</h6>
+    </center>
+  </div>
+  <!------------------------ End empty-folder ------------------------>
+  {% endif %}
+</div>
+<!-- End folder-container-->

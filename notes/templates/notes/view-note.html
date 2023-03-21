@@ -1,0 +1,220 @@
+{% load static %}
+<!--  -->
+{% load humanize %}
+
+<!DOCTYPE html>
+<html lang="en" class="js has-scroll-init has-scroll-smooth">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta
+      name="description"
+      content="BrainDump is a platform that helps you capture all of the thoughts, ideas, and tasks that are currently cluttering your mind, in order to free up mental space and focus on what's important."
+    />
+    <meta name="keywords" content="BrainDump is a platform" />
+    <meta name="author" content="the_desiinger" />
+    <link rel="icon" href="{% static '/images/favicon.svg' %}" />
+    <title>{{quick_note.title}} Page</title>
+
+    <!-- Preload CSS -->
+    <link rel="preload" as="style" href="{% static '/css/view-note.css' %}" />
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="{% static '/css/bootstrap.min.css' %}" />
+    <link rel="stylesheet" href="{% static '/css/view-note.css' %}" />
+    <link
+      href="//netdna.bootstrapcdn.com/font-awesome/3.2.1/css/font-awesome.css"
+      rel="stylesheet"
+    />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/2.1.2/TweenMax.min.js"></script>
+
+    <script>
+      document.documentElement.className = "js";
+      var supportsCssVars = function () {
+        var e,
+          t = document.createElement("style");
+        return (
+          (t.innerHTML = "root: { --tmp-var: bold; }"),
+          document.head.appendChild(t),
+          (e = !!(
+            window.CSS &&
+            window.CSS.supports &&
+            window.CSS.supports("font-weight", "var(--tmp-var)")
+          )),
+          t.parentNode.removeChild(t),
+          e
+        );
+      };
+      supportsCssVars() ||
+        alert(
+          "Please view this work in a modern browser that supports CSS Variables."
+        );
+    </script>
+  </head>
+  <body
+    id="pageTop"
+    class="page-content"
+    data-spy="scroll"
+    data-target="#mainNav"
+  >
+    <!--======================== Main-Section ================================-->
+    <main>
+      <!--======================== Nav-Section ================================-->
+      {% include 'notes/nav.html' %}
+      <!-- End Nav-Section -->
+
+      <!--=========================================== smooth-scroll-effect ===============================-->
+      <div data-scroll class="page page--layout-2">
+        <div class="content content--full content--alternate"></div>
+        <!-- End content -->
+
+        <!--======================== BrainDump-App-Section ================================-->
+        <div class="app-container">
+          <div class="menu-wrapper">
+            <!--------------------- LEFT SIDE WRAPPER --------------------->
+            <div class="left-side-menu">
+              <!--------------------- SIDE WRAPPER IMAGE --------------------->
+              <div class="side-wrapper">
+                <!-- user_info -->
+                <center>
+                  <div id="user_info">
+                    {% with name=request.user.profile.name %}
+                    <!--  -->
+                    <h2 class="first-intial">{{ name|slice:":1" }}</h2>
+                    <!--  -->
+                    {% endwith %}
+                  </div>
+                </center>
+                <!-- End user_info -->
+
+                <!--------------------- SIDE MENU LINKS --------------------->
+                <div class="side-menu" id="side-menu">
+                  <a href="{% url 'get-started' %}">
+                    <img
+                      id="icons"
+                      src="{% static '/images/get-started.svg' %}"
+                    />
+                    Get Started
+                  </a>
+                  <a href="{% url 'all-notes' %}">
+                    <img id="icons" src="{% static '/images/notebook.svg' %}" />
+                    All Notes
+                  </a>
+                  <a href="{% url 'quick-note' %}">
+                    <img
+                      id="icons"
+                      src="{% static '/images/sticky-note.png' %}"
+                    />
+                    Quick Notes
+                  </a>
+
+                  <div id="new_folder">
+                    <a
+                      href="#newFolder"
+                      data-bs-toggle="modal"
+                      data-bs-target="#staticBackdropNewFolder"
+                    >
+                      <img
+                        id="icons"
+                        src="{% static '/images/new-folder.svg' %}"
+                      />
+                      <span>New Folder</span>
+                    </a>
+                  </div>
+                  <!-- End new_folder-->
+
+                  {% include 'folders/folder-container.html' %}
+                </div>
+                <!-- End side-menu -->
+              </div>
+              <!-- End side-wrapper -->
+
+              <!--------------------- SIDE WRAPPER FOOTER --------------------->
+              {% include 'notes/side-wrapper-footer.html' %}
+              <!-- End side-wrapper -->
+            </div>
+            <!-- End left-side -->
+
+            <!--------------------- MAIN CONATINER --------------------->
+            <div class="main-container">
+              <div id="note_info">
+                <form action="" method="POST">
+                  {% csrf_token %}
+                  <h6>
+                    /last edited: {{quick_note.updated_time_stamp|naturaltime}}
+                  </h6>
+                  <!--  -->
+                  <a href="javascript:history.back()">
+                    <img
+                      id="arrow_img"
+                      src="{% static '/images/left-chevron.png' %}"
+                      class="img-fluid"
+                      alt="arrow_img"
+                    />
+                  </a>
+
+                  <div class="mb-3">{{form.title}}</div>
+                  <!-- End mb-3-->
+
+                  <div class="mb-3">{{form.description}}</div>
+                  <!-- End mb-3-->
+
+                  <div class="form-footer">
+                    <a
+                      href="#"
+                      data-bs-toggle="modal"
+                      data-bs-target="#staticBackdropDeleteNote"
+                    >
+                      <img
+                        id="trash_img"
+                        src="{% static '/images/trash.png' %}"
+                        class="img-fluid"
+                        alt="trash_img"
+                      />
+                    </a>
+
+                    <input
+                      type="submit"
+                      class="btn"
+                      id="update_note"
+                      value="update note"
+                    />
+                  </div>
+                  <!-- End form-footer-->
+                </form>
+                <!-- End form-->
+              </div>
+              <!-- note_info -->
+
+              <!--------------------- FOOTER --------------------->
+              {% include "notes/footer.html" %}
+              <!-- End footer -->
+            </div>
+            <!-- End main-container -->
+          </div>
+          <!-- End menu-wrapper -->
+        </div>
+        <!-- End app-container -->
+
+        <!--=========================================== New-Folder-Modal--layout ===============================-->
+        {% include 'folders/new-folder-modal.html' %}
+        <!-- End new_folder-modal-->
+
+        <!--=========================================== delete-note-Modal--layout ===============================-->
+        {% include 'notes/delete-note-modal.html' %}
+        <!-- End delete-note-modal-->
+      </div>
+      <!-- End page--layout -->
+    </main>
+    <!-- End Main-Section -->
+
+    <!--=============================================== JavaScript ===================================-->
+    <script src="https://code.jquery.com/jquery-3.4.1.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.5.0/gsap.min.js"></script>
+    <!-- unpkg -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/2.1.3/TweenMax.min.js"></script>
+    <!-- Custom Links -->
+    <script src="{% static '/js/jquery-min.js' %}"></script>
+    <script src="{% static '/js/bootstrap.min.js' %}"></script>
+    <script src="{% static '/js/note.js' %}"></script>
+  </body>
+</html>

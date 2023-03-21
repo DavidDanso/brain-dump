@@ -1,0 +1,123 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en" class="js has-scroll-init has-scroll-smooth">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="description" content="More than a Doc..." />
+    <meta name="keywords" content="Cados Advocates App" />
+    <meta name="author" content="the_desiinger" />
+    <link rel="icon" href="assets/images/favicon.svg" />
+    <title>Notebooks Page</title>
+
+    <!-- Preload CSS -->
+    <link rel="preload" as="style" href="assets/styles/css/quick_note.css" />
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="assets/styles/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="assets/styles/css/quick_note.css" />
+    <link
+      href="//netdna.bootstrapcdn.com/font-awesome/3.2.1/css/font-awesome.css"
+      rel="stylesheet"
+    />
+    <link
+      href="//netdna.bootstrapcdn.com/font-awesome/3.2.1/css/font-awesome.css"
+      rel="stylesheet"
+    />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/2.1.2/TweenMax.min.js"></script>
+
+    <script>
+      document.documentElement.className = "js";
+      var supportsCssVars = function () {
+        var e,
+          t = document.createElement("style");
+        return (
+          (t.innerHTML = "root: { --tmp-var: bold; }"),
+          document.head.appendChild(t),
+          (e = !!(
+            window.CSS &&
+            window.CSS.supports &&
+            window.CSS.supports("font-weight", "var(--tmp-var)")
+          )),
+          t.parentNode.removeChild(t),
+          e
+        );
+      };
+      supportsCssVars() ||
+        alert(
+          "Please view this work in a modern browser that supports CSS Variables."
+        );
+    </script>
+  </head>
+  <body
+    id="pageTop"
+    class="page-content"
+    data-spy="scroll"
+    data-target="#mainNav"
+  >
+    <!--======================== Main-Section ================================-->
+    <main>
+      <!--======================== Nav-Section ================================-->
+      <nav class="navbar navbar-expand-lg fixed-top menu" id="mainNav">
+        <div class="container-fluid">
+          <a class="navbar-brand" href="index.html"
+            ><img id="logo" src="assets/images/logo.png"
+          /></a>
+          <button
+            class="navbar-toggler"
+            type="button"
+            data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent"
+            aria-expanded="false"
+            aria-label="Toggle navigation"
+          >
+            <span></span><span></span><span></span>
+          </button>
+          <div class="collapse navbar-collapse" id="navbarTogglerDemo01">
+            <ul class="navbar-nav mx-auto mb-2 mb-lg-0"></ul>
+            <!-- End logo-link -->
+
+            <div id="user_intial">
+              <h2 class="first-intial">DKD</h2>
+            </div>
+            <!-- End user_intial-->
+            <a href="user-profile.html">
+              <h5 class="user-full_name">David Brownson</h5>
+            </a>
+          </div>
+        </div>
+      </nav>
+      <!-- End Nav-Section -->
+
+      <!--=========================================== smooth-scroll-effect ===============================-->
+      <div data-scroll class="page page--layout-2">
+        <div class="content content--full content--alternate"></div>
+        <!-- End content -->
+
+        <!--======================== BrainDump-App-Section ================================-->
+
+        <!-- End app-container -->
+      </div>
+      <!-- End page--layout -->
+    </main>
+    <!-- End Main-Section -->
+
+    <!--=============================================== JavaScript ===================================-->
+    <script src="https://code.jquery.com/jquery-3.4.1.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.5.0/gsap.min.js"></script>
+    <script
+      type="module"
+      src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"
+    ></script>
+    <script
+      nomodule
+      src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"
+    ></script>
+    <!-- unpkg -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/2.1.3/TweenMax.min.js"></script>
+    <!-- Custom Links -->
+    <script src="assets/styles/js/jquery-min.js"></script>
+    <script src="assets/styles/js/bootstrap.min.js"></script>
+    <script src="assets/styles/js/quick_note.js"></script>
+  </body>
+</html>

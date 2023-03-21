@@ -1,0 +1,37 @@
+{% load static %}
+<!--======================== Nav-Section ================================-->
+<nav class="navbar navbar-expand-lg fixed-top menu" id="mainNav">
+  <div class="container-fluid">
+    <a class="navbar-brand" href="{% url 'get-started' %}"
+      ><img id="logo" src="{% static '/images/logo.png' %}"
+    /></a>
+    <button
+      class="navbar-toggler"
+      type="button"
+      data-toggle="collapse"
+      data-target="#navbarSupportedContent"
+      aria-controls="navbarSupportedContent"
+      aria-expanded="false"
+      aria-label="Toggle navigation"
+    >
+      <span></span><span></span><span></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarTogglerDemo01">
+      <ul class="navbar-nav mx-auto mb-2 mb-lg-0"></ul>
+      <!-- End logo-link -->
+
+      <div id="user_intial">
+        {% with name=request.user.profile.name %}
+        <!--  -->
+        <h2 class="first-intial">{{ name|slice:":1" }}</h2>
+        <!--  -->
+        {% endwith %}
+      </div>
+      <!-- End user_intial-->
+      <a href="{% url 'user-profile' %}">
+        <h5 class="user-full_name">{{request.user.profile.name}}</h5>
+      </a>
+    </div>
+  </div>
+</nav>
+<!-- End Nav-Section -->

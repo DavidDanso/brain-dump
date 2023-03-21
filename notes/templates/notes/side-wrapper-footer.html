@@ -1,0 +1,19 @@
+{% load static %}
+<!--------------------- SIDE WRAPPER FOOTER --------------------->
+<div class="side-wrapper">
+  <div class="side-menu">
+    <div class="side-menu_footer">
+      <p>
+        <img
+          id="footer_logout"
+          src="{% static '/images/logout.png' %}"
+          alt="footer_logout"
+        />
+        Click to <a href="{% url 'logout' %}"><mark>Logout</mark></a>
+      </p>
+    </div>
+    <!-- End side-menu_footer -->
+  </div>
+  <!-- End side-menu -->
+</div>
+<!-- End side-wrapper -->

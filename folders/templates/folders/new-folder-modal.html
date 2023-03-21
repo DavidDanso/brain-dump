@@ -1,0 +1,66 @@
+{% load static %}
+<!--=========================================== New-Folder-Modal--layout ===============================-->
+<div id="new_folder-modal">
+  <div
+    class="modal fade"
+    id="staticBackdropNewFolder"
+    data-bs-backdrop="static"
+    data-bs-keyboard="false"
+    tabindex="-1"
+    aria-labelledby="staticBackdropLabel"
+    aria-hidden="true"
+  >
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content">
+        <div class="modal-header">
+          <img
+            id="new_folder-img"
+            src="{% static '/images/empty-folder.png' %}"
+            class="img-fluid d-flex mx-auto"
+            alt="folder-img"
+          />
+        </div>
+        <div class="modal-body">
+          <div id="modal-wrapper">
+            <form action="" method="POST">
+              {% csrf_token %}
+              <div class="mb-3 row">
+                <label for="inputFolderName" class="col-sm-2 col-form-label"
+                  >Name</label
+                >
+                <div class="col-sm-10">{{folder_form.title}}</div>
+              </div>
+
+              <h5 class="folder_msg">/Helps you organise your notes</h5>
+              <div class="modal-footer">
+                <button
+                  type="button"
+                  class="btn"
+                  data-bs-dismiss="modal"
+                  id="cancel_folder"
+                >
+                  cancel
+                </button>
+
+                <input
+                  type="submit"
+                  class="btn"
+                  name="create_folder"
+                  id="create_folder"
+                  value="create folder"
+                />
+              </div>
+              <!-- End modal-footer-->
+            </form>
+            <!-- End form-->
+          </div>
+          <!-- End modal-wrapper-->
+        </div>
+        <!-- End modal-body-->
+      </div>
+      <!-- End modal-content-->
+    </div>
+  </div>
+  <!-- End modal-->
+</div>
+<!-- End new_folder-modal-->

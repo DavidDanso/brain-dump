@@ -1,0 +1,57 @@
+<!--=========================================== Quick-Note-Modal--layout ===============================-->
+<div id="quick_note-modal">
+  <div
+    class="modal fade"
+    id="staticBackdrop"
+    data-bs-backdrop="static"
+    data-bs-keyboard="false"
+    tabindex="-1"
+    aria-labelledby="staticBackdropLabel"
+    aria-hidden="true"
+  >
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="note_date">/{{time}}</h5>
+        </div>
+        <!-- End note_date-->
+        <div class="modal-body">
+          <div id="modal-wrapper">
+            <form action="" method="POST">
+              {% csrf_token %}
+              <div class="mb-3">{{form.title}}</div>
+              <!-- End mb-3-->
+
+              <div class="mb-3">{{form.description}}</div>
+              <!-- End mb-3-->
+
+              <div class="modal-footer">
+                <button
+                  type="button"
+                  class="btn"
+                  data-bs-dismiss="modal"
+                  id="cancel_note"
+                >
+                  cancel
+                </button>
+                <input
+                  type="submit"
+                  class="btn"
+                  id="save_note"
+                  value="create note"
+                />
+              </div>
+              <!-- End modal-footer-->
+            </form>
+            <!-- End form-->
+          </div>
+          <!-- End modal-wrapper-->
+        </div>
+        <!-- End modal-body-->
+      </div>
+      <!-- End modal-content-->
+    </div>
+  </div>
+  <!-- End modal-->
+</div>
+<!-- End quick_note-modal-->

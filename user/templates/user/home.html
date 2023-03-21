@@ -1,0 +1,125 @@
+{% load static %}
+<!--  -->
+<!DOCTYPE html>
+<html lang="en" class="js has-scroll-init has-scroll-smooth">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta
+      name="description"
+      content="BrainDump is a platform that helps you capture all of the thoughts, ideas, and tasks that are currently cluttering your mind, in order to free up mental space and focus on what's important."
+    />
+    <meta name="keywords" content="BrainDump is a platform" />
+    <meta name="author" content="the_desiinger" />
+    <link rel="icon" href="{% static '/images/favicon.svg' %}" />
+    <title>Home Page</title>
+
+    <!-- Preload CSS -->
+    <link rel="preload" as="style" href="{% static '/css/home.css' %}" />
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="{% static '/css/bootstrap.min.css' %}" />
+    <link rel="stylesheet" href="{% static '/css/home.css' %}" />
+    <link
+      rel="stylesheet"
+      href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css"
+    />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/2.1.2/TweenMax.min.js"></script>
+
+    <script>
+      document.documentElement.className = "js";
+      var supportsCssVars = function () {
+        var e,
+          t = document.createElement("style");
+        return (
+          (t.innerHTML = "root: { --tmp-var: bold; }"),
+          document.head.appendChild(t),
+          (e = !!(
+            window.CSS &&
+            window.CSS.supports &&
+            window.CSS.supports("font-weight", "var(--tmp-var)")
+          )),
+          t.parentNode.removeChild(t),
+          e
+        );
+      };
+      supportsCssVars() ||
+        alert(
+          "Please view this work in a modern browser that supports CSS Variables."
+        );
+    </script>
+  </head>
+  <body
+    id="pageTop"
+    class="page-content"
+    data-spy="scroll"
+    data-target="#mainNav"
+  >
+    <!--======================== Main-Section ================================-->
+    <main>
+      <!-- Show django messages -->
+      {% include 'notes/django-messages.html' %}
+      <!--  end django message -->
+
+      <!--=========================================== smooth-scroll-effect ===============================-->
+      <div data-scroll class="page page--layout-2">
+        <div class="content content--full content--alternate"></div>
+        <!-- End content -->
+
+        <!--======================== BrainDump-App-Section ================================-->
+        <div id="home">
+          <div class="container">
+            <div id="home-intro">
+              <div id="logo-container">
+                <img
+                  id="logo_"
+                  src="{% static '/images/home-logo.svg' %}"
+                  class="img-fluid d-flex mx-auto"
+                  alt="logo_"
+                />
+              </div>
+              <!-- end logo-container -->
+              <h1>Welcome to <span>BrainDump</span></h1>
+              <p>The ultimate digital notebook for all your notes.</p>
+              <center>
+                <a href="{% url 'sign-up' %}" class="btn" id="submit_btn"
+                  >Create an Account</a
+                >
+                <a href="{% url 'login' %}" class="btn" id="login_btn"
+                  ><span>Login</span></a
+                >
+              </center>
+            </div>
+            <!-- end home-intro -->
+          </div>
+          <!-- end container -->
+        </div>
+        <!-- end home -->
+
+        <!--=========================================== Footer--layout ===============================-->
+        <footer>
+          <div class="container-fluid">
+            <div class="footer-intro">
+              <p>&copy;2023 BrainDump - Notes app</p>
+            </div>
+            <!-- End footer-intro -->
+          </div>
+        </footer>
+        <!-- End footer -->
+
+        <!-- End app-container -->
+      </div>
+      <!-- End page--layout -->
+    </main>
+    <!-- End Main-Section -->
+
+    <!--=============================================== JavaScript ===================================-->
+    <script src="https://code.jquery.com/jquery-3.4.1.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.5.0/gsap.min.js"></script>
+    <!-- unpkg -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/2.1.3/TweenMax.min.js"></script>
+    <!-- Custom Links -->
+    <script src="{% static '/js/jquery-min.js' %}"></script>
+    <script src="{% static '/js/bootstrap.min.js' %}"></script>
+    <script src="{% static '/js/home.js' %}"></script>
+  </body>
+</html>

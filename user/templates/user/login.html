@@ -1,0 +1,183 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en" class="js has-scroll-init has-scroll-smooth">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta
+      name="description"
+      content="BrainDump is a platform that helps you capture all of the thoughts, ideas, and tasks that are currently cluttering your mind, in order to free up mental space and focus on what's important."
+    />
+    <meta name="keywords" content="BrainDump is a platform" />
+    <meta name="author" content="the_desiinger" />
+    <link rel="icon" href="{% static '/images/favicon.svg' %}" />
+    <title>Login Page</title>
+
+    <!-- Preload CSS -->
+    <link
+      rel="preload"
+      as="style"
+      href="{% static '/css/login_register.css' %}"
+    />
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="{% static '/css/bootstrap.min.css' %}" />
+    <link rel="stylesheet" href="{% static '/css/login_register.css' %}" />
+    <link
+      rel="stylesheet"
+      href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css"
+    />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/2.1.2/TweenMax.min.js"></script>
+
+    <script>
+      document.documentElement.className = "js";
+      var supportsCssVars = function () {
+        var e,
+          t = document.createElement("style");
+        return (
+          (t.innerHTML = "root: { --tmp-var: bold; }"),
+          document.head.appendChild(t),
+          (e = !!(
+            window.CSS &&
+            window.CSS.supports &&
+            window.CSS.supports("font-weight", "var(--tmp-var)")
+          )),
+          t.parentNode.removeChild(t),
+          e
+        );
+      };
+      supportsCssVars() ||
+        alert(
+          "Please view this work in a modern browser that supports CSS Variables."
+        );
+    </script>
+  </head>
+  <body
+    id="pageTop"
+    class="page-content"
+    data-spy="scroll"
+    data-target="#mainNav"
+  >
+    <!--======================== Main-Section ================================-->
+    <main>
+      <!-- Show django messages -->
+      {% include 'notes/django-messages.html' %}
+      <!--  end django message -->
+
+      <!--=========================================== smooth-scroll-effect ===============================-->
+      <div data-scroll class="page page--layout-2">
+        <div class="content content--full content--alternate"></div>
+        <!-- End content -->
+
+        <!--======================== BrainDump-App-Section ================================-->
+        <div id="login-container">
+          <div class="container">
+            <div id="login-intro">
+              <div id="logo-container">
+                <a href="{% url 'home' %}">
+                  <img
+                    id="logo_"
+                    src="{% static '/images/logo.png' %}"
+                    class="img-fluid d-flex mx-auto"
+                    alt="logo_"
+                  />
+                </a>
+              </div>
+              <!-- end logo-container -->
+
+              <div class="card d-flex mx-auto" id="login-card">
+                <div class="card-body">
+                  <h1>Welcome Back</h1>
+                  <p>
+                    Enter your details to access your
+                    <span>brain dump account</span>.
+                  </p>
+                  <hr id="line" />
+                  <!--  -->
+                  <form
+                    class="row g-3"
+                    action="{% url 'login' %}"
+                    method="POST"
+                  >
+                    {% csrf_token %}
+                    <div class="col-12">
+                      <label for="inputUsername" class="form-label"
+                        >Username</label
+                      >
+                      <input
+                        type="text"
+                        class="form-control form-control-lg"
+                        id="inputUsername"
+                        name="username"
+                        placeholder="enter your username"
+                      />
+                    </div>
+                    <!-- end form-group -->
+
+                    <div class="col-12" id="form-group">
+                      <label for="InputPassword" class="form-label"
+                        >Password</label
+                      >
+                      <a href="#"><span>Forgot Password?</span></a>
+                      <input
+                        type="password"
+                        class="form-control form-control-lg"
+                        id="InputPassword"
+                        name="password"
+                        value="enter your password"
+                      />
+                      <span
+                        toggle="#InputPassword"
+                        class="fa fa-fw fa-eye-slash field-icon toggle-password"
+                      ></span>
+                    </div>
+                    <!-- end form-group -->
+
+                    <button type="submit" class="btn" id="submit_btn">
+                      Sign in
+                    </button>
+                  </form>
+                  <!-- end form -->
+
+                  <h6>
+                    Not Registered?
+                    <a href="{% url 'sign-up' %}">Create an Account</a>
+                  </h6>
+                </div>
+                <!-- end card-body -->
+              </div>
+              <!-- end login-card -->
+            </div>
+            <!-- end login-intro -->
+          </div>
+          <!-- end container -->
+        </div>
+        <!-- end login-container -->
+
+        <!--=========================================== Footer--layout ===============================-->
+        <footer>
+          <div class="container-fluid">
+            <div class="footer-intro">
+              <p>&copy;2023 BrainDump - Notes app</p>
+            </div>
+            <!-- End footer-intro -->
+          </div>
+        </footer>
+        <!-- End footer -->
+
+        <!-- End app-container -->
+      </div>
+      <!-- End page--layout -->
+    </main>
+    <!-- End Main-Section -->
+
+    <!--=============================================== JavaScript ===================================-->
+    <script src="https://code.jquery.com/jquery-3.4.1.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.5.0/gsap.min.js"></script>
+    <!-- unpkg -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/2.1.3/TweenMax.min.js"></script>
+    <!-- Custom Links -->
+    <script src="{% static '/js/jquery-min.js' %}"></script>
+    <script src="{% static '/js/bootstrap.min.js' %}"></script>
+    <script src="{% static '/js/login_register.js' %}"></script>
+  </body>
+</html>
