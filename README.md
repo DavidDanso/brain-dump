@@ -2,7 +2,7 @@
 
 ## Project Description
 
-#### BrainDump is a Django project that allows users to store their ideas and thoughts in a structured manner. 
+#### BrainDump is a Django web app that allows users to store their ideas and thoughts in a structured manner. 
 
 `Feel free to make changes based on your requirements. and if you like this project, ADD a STAR ⭐️`
 
