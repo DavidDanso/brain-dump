@@ -20,12 +20,12 @@ To get started with BrainDump, you'll need to follow these steps:
 ## Installing:
 Clone the repository to your local machine:
 ```
-git clone https://github.com/username/BrainDump.git
+git clone https://github.com/DavidDanso/brain-dump.git
 ```
 
 #### Navigate to the project directory:
 ```
-cd BrainDump/
+cd brain-dump/
 ```
 
 #### Create a virtual environment:
