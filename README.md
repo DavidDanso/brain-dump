@@ -86,7 +86,7 @@ Migrate the database:
 python manage.py migrate
 ```
 
-Create a superuser account::
+Create a superuser account:
 ```
 python manage.py createsuperuser
 ```
@@ -259,7 +259,7 @@ python manage.py runserver
 </td>
 </table>
 
-## Authors
+## Author
 David Danso - Initial work - [GitHub Profile](https://github.com/DavidDanso)
 
 ##### Email: davidkellybrownson@gmail.com
