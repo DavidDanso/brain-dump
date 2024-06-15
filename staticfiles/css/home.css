@@ -1,0 +1,324 @@
+*,
+*::after,
+*::before {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html,
+body {
+  box-sizing: border-box;
+  font-size: 14px;
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  overflow-x: hidden;
+  background: var(--main-color);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  scroll-behavior: smooth;
+}
+a {
+  text-decoration: none;
+}
+a:hover {
+  text-decoration: none;
+}
+.line {
+  position: relative;
+  overflow: hidden;
+  display: flex;
+}
+.line div {
+  visibility: hidden;
+}
+
+/* Fonts */
+@font-face {
+  font-weight: normal;
+  font-style: normal;
+  font-family: "Apercu-Bold";
+  src: url("../fonts/Apercu-Bold.woff2");
+}
+@font-face {
+  font-weight: normal;
+  font-style: normal;
+  font-family: "GTAmerica-Light";
+  src: url("../fonts/GTAmerica-Light.woff2");
+}
+.page-content {
+  --main-color: #221d28;
+  --text-color: #f6f6f6;
+  --border-color: #707070;
+  --side-menu-color: #2b2833;
+  --user-avatar-color: #668aff;
+  --accent-color: #668aff;
+  --header-font: "Apercu-Bold";
+  --text-font: "GTAmerica-Light";
+}
+a {
+  text-decoration: none;
+  color: var(--accent-color);
+}
+a:hover {
+  text-decoration: none;
+  color: var(--accent-color);
+}
+
+/*change color of text highlight*/
+::-moz-selection {
+  color: var(--text-color);
+  background: var(--accent-color);
+}
+::selection {
+  color: var(--text-color);
+  background: var(--accent-color);
+}
+
+::-webkit-scrollbar {
+  width: 5px;
+}
+::-webkit-scrollbar-thumb {
+  background: var(--side-menu-color);
+  border-radius: 2px;
+}
+
+/* django message styles */
+#alert_message {
+  width: 20%;
+  text-align: center;
+  letter-spacing: 1px;
+  font-family: var(--text-font);
+  font-size: 1.7vh;
+  margin-top: 2%;
+  position: absolute;
+  top: 0%;
+  left: 45%;
+  z-index: 100;
+}
+.alert-error {
+  background: #bc302f !important;
+  color: var(--text-color) !important;
+}
+/****************************************** login-container **************************************/
+#login-container {
+  margin-top: 10%;
+}
+#login-container #logo_ {
+  width: 13%;
+}
+#login-container .card {
+  background: var(--side-menu-color);
+  border: 1px solid var(--text-color);
+  width: 65%;
+  margin-top: 2%;
+  padding: 1%;
+}
+#login-container h1 {
+  color: var(--text-color);
+  letter-spacing: 1px;
+  font-family: var(--header-font);
+  font-size: 4vh;
+  margin-bottom: -1px;
+}
+#login-container p {
+  color: var(--border-color);
+  letter-spacing: 1px;
+  font-family: var(--text-font);
+  font-size: 2vh;
+  margin-bottom: 7%;
+}
+#login-container p span {
+  color: var(--accent-color);
+}
+hr {
+  color: var(--text-color);
+  opacity: 0.45;
+}
+#line {
+  background: var(--text-color) !important;
+  margin-top: -5%;
+  margin-bottom: 6%;
+}
+
+/* label  */
+#login-container form label {
+  color: var(--text-color);
+  letter-spacing: 1px;
+  font-family: var(--header-font);
+  font-size: 2vh;
+}
+#login-container #form-group a {
+  float: right;
+  font-size: 1.7vh;
+  color: var(--text-color);
+  letter-spacing: 1px;
+  font-family: var(--text-font);
+}
+#login-container #form-group a span {
+  border-bottom: 1px solid var(--text-color);
+}
+.field-icon {
+  float: right;
+  margin-left: -20px;
+  margin-top: -25px;
+  position: relative;
+  z-index: 2;
+  color: var(--text-color);
+}
+.fa-eye:before,
+.fa-eye-slash:before {
+  margin-left: -20px;
+}
+/* input */
+#login-container form input {
+  color: var(--text-color);
+  letter-spacing: 1px;
+  font-family: var(--text-font);
+  font-size: 1.8vh;
+  border: transparent;
+  background: var(--main-color);
+}
+#login-container form input:focus {
+  box-shadow: none !important;
+  outline: 0px !important;
+  border: 1px solid #f6f6f669;
+  color: var(--text-color);
+}
+#login-container form input::placeholder {
+  color: #f6f6f6c2;
+  font-size: 1.7vh;
+}
+#submit_btn {
+  background: var(--accent-color);
+  letter-spacing: 1px;
+  font-family: var(--text-font);
+  font-size: 1.8vh;
+  color: var(--text-color);
+  transition: all 0.5s ease-in-out;
+}
+#submit_btn:hover {
+  color: var(--text-color);
+  background: #668affad;
+  transition: all 0.5s ease-in-out;
+}
+#login-container h6 {
+  color: var(--border-color);
+  letter-spacing: 1px;
+  font-family: var(--text-font);
+  font-size: 1.9vh;
+  text-align: center;
+  margin-top: 3%;
+  margin-bottom: 0%;
+}
+#login-container h6 a {
+  color: var(--text-color);
+  font-family: var(--header-font);
+}
+#login-container h6 a span {
+  border-bottom: 1px solid var(--text-color);
+}
+
+/****************************************** home-container **************************************/
+#home {
+  margin-top: 16%;
+  margin-bottom: -5%;
+}
+#home #logo_ {
+  width: 6%;
+  margin-bottom: 2%;
+}
+#home h1 {
+  color: var(--text-color);
+  letter-spacing: 1px;
+  font-family: var(--header-font);
+  font-size: 6vh;
+  text-align: center;
+}
+#home h1 span {
+  color: var(--accent-color);
+}
+#home p {
+  color: var(--text-color);
+  letter-spacing: 1px;
+  font-family: var(--text-font);
+  font-size: 2.3vh;
+  margin-bottom: 1%;
+  text-align: center;
+}
+/*  */
+#submit_btn {
+  background: var(--accent-color);
+  letter-spacing: 1px;
+  font-family: var(--text-font);
+  font-size: 2.1vh;
+  color: var(--text-color);
+  transition: all 0.5s ease-in-out;
+}
+#submit_btn:hover {
+  color: var(--text-color);
+  background: #668affad;
+  transition: all 0.5s ease-in-out;
+}
+#login_btn {
+  letter-spacing: 1px;
+  font-family: var(--text-font);
+  font-size: 2.1vh;
+  color: var(--text-color);
+  transition: all 0.5s ease-in-out;
+}
+#login_btn span {
+  border-bottom: 1px solid var(--text-color);
+}
+#login_btn:hover {
+  color: var(--border-color);
+  transition: all 0.5s ease-in-out;
+}
+/************************ Footer__Section *****************************/
+footer {
+  margin-top: 20%;
+}
+footer p {
+  text-align: center;
+  color: var(--text-color);
+  letter-spacing: 1px;
+  font-family: var(--text-font);
+  font-size: 1.7vh;
+  padding-top: 2%;
+}
+/********************** Extra small devices (portrait phones, less than 576px) ****************************/
+@media (max-width: 575.98px) {
+  main {
+    display: none;
+  }
+}
+/************************ Small devices (landscape phones, 576px and up) *****************************/
+@media (min-width: 576px) and (max-width: 767.98px) {
+  main {
+    display: none;
+  }
+}
+/***************************** Medium devices (tablets, 768px and up) ********************************/
+@media (min-width: 768px) and (max-width: 991.98px) {
+  main {
+    display: none;
+  }
+}
+/********************************** Large devices (desktops, 992px and up) *********************************/
+@media (min-width: 992px) and (max-width: 1199.98px) {
+  main {
+    display: none;
+  }
+}
+/************************ Extra large devices (large desktops, 1200px and up) ********************************/
+@media (min-width: 1200px) {
+  /****** modal-Section ******/
+}
+
+/************************ Extra large devices (extra large desktops, 1900px and up) ********************************/
+@media (min-width: 2000px) {
+  main {
+    display: none;
+  }
+}
