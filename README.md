@@ -13,14 +13,6 @@ Check out the live demo [here](https://brain-dump.onrender.com).
 ## Getting Started:
 To get started with BrainDump, you'll need to follow these steps:
 
-#### Prerequisites
-```
-- Python 3.10+
-- pip package installer
-- Git
-- PostgreSQL
-```
-
 ## Installing:
 Clone the repository to your local machine:
 ```
