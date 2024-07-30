@@ -6,10 +6,6 @@
 
 `Feel free to make changes based on your requirements. and if you like this project, ADD a STAR ⭐️`
 
-## Live Demo
-
-Check out the live demo [here](https://brain-dump.onrender.com).
-
 ## Getting Started:
 To get started with BrainDump, you'll need to follow these steps:
 
